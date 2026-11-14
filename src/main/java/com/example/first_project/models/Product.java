@@ -1,12 +1,20 @@
 package com.example.first_project.models;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+@Entity
 public class Product extends  BaseModel {
 
     String productName;
     int ProductPrice;
-    String description;
+
+    @ManyToOne
     Category category;
 
 
@@ -33,15 +41,6 @@ public class Product extends  BaseModel {
     public void setProductName(String productName) {
         this.productName = productName;
     }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
 
 
 
