@@ -3,6 +3,7 @@ package com.example.first_project.controllers;
 import com.example.first_project.exceptions.ProductNotFound;
 import com.example.first_project.models.Product;
 import com.example.first_project.services.ProductService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,9 +14,9 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
 
-    ProductService productService;
+    private final ProductService productService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(@Qualifier("SelfProductService") ProductService productService) {
         this.productService = productService;
     }
 
@@ -34,13 +35,10 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    public void deleteProduct(Long productId) {
-
-    }
 
     @PatchMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product) {
-        return productService.updateProduct(id, product) ;
+        return productService.updateProduct(id, product);
 
     }
 
@@ -49,4 +47,15 @@ public class ProductController {
         return null;
     }
 
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Product addNewProduct(@RequestBody Product product) {
+        return productService.addNewProduct(product);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable("id") Long id) {
+        productService.deleteProduct(id);
+    }
 }

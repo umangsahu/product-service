@@ -12,18 +12,18 @@ import lombok.Setter;
 public class Product extends  BaseModel {
 
     String productName;
-    int ProductPrice;
+    int productPrice;
 
     @ManyToOne
     Category category;
 
 
     public int getProductPrice() {
-        return ProductPrice;
+        return productPrice;
     }
 
     public void setProductPrice(int productPrice) {
-        ProductPrice = productPrice;
+        this.productPrice = productPrice;
     }
 
     public Category getCategory() {
